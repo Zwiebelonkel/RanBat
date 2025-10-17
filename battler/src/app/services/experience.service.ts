@@ -7,16 +7,21 @@ export class ExperienceService {
   constructor(private storage: StorageService) {}
 
   addExperience(character: Character, amount: number) {
-    character.experience += amount;
-    if (character.experience >= this.getExperienceForNextLevel(character.level)) {
+    character.xp += amount;
+    if (character.xp >= this.getExperienceForNextLevel(character.level)) {
       this.levelUp(character);
     }
-    this.storage.updateCharacter(character);
+    const deck = this.storage.loadDeck();
+    const charIndex = deck.findIndex(c => c.id === character.id);
+    if (charIndex > -1) {
+      deck[charIndex] = character;
+      this.storage.saveDeck(deck);
+    }
   }
 
   private levelUp(character: Character) {
     character.level++;
-    character.experience = 0;
+    character.xp = 0;
     // Improve stats
     character.stats.strength += this.getStatIncrease();
     character.stats.stamina += this.getStatIncrease();
