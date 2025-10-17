@@ -27,11 +27,16 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Debug paths
+        run: |
+          pwd
+          ls -R
+
       - name: Install dependencies and build
+        working-directory: battler
         run: |
           npm install
           npm run build
-          # Wenn dein Build index.csg.html erzeugt:
           mv dist/battler/browser/index.csg.html dist/battler/browser/index.html || echo "No rename needed"
 
       - name: Deploy to Firebase Hosting
@@ -40,3 +45,4 @@ jobs:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DARKESTBATTLCARDS }}
           projectId: darkestbattlcards
+          entryPoint: battler
