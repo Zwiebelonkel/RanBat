@@ -17,16 +17,16 @@
 </section>
 
 <div style="display: flex; gap: 24px; margin-top: 16px" *ngIf="me || enemy">
-  <app-character-card *ngIf="me" [c]="me"></app-character-card>
-  <app-character-card *ngIf="enemy" [c]="enemy"></app-character-card>
+  <app-character-card *ngIf="me" [c]="me!"></app-character-card>
+  <app-character-card *ngIf="enemy" [c]="enemy!"></app-character-card>
 </div>
 
 <section style="margin-top: 16px" *ngIf="me && enemy">
   <h3>3) Kampf</h3>
   <button (click)="fight()">⚔️ Fight!</button>
   <div *ngIf="result" style="margin-top: 8px">
-    <strong>Gewinner:</strong> {{ result.winner }} — <em>Verlierer:</em> {{
-    result.loser }}
+    <strong>Gewinner:</strong> {{ result?.winner }} — <em>Verlierer:</em> {{
+    result?.loser }}
   </div>
   <ul>
     <li *ngFor="let line of resultLog">{{ line }}</li>

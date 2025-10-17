@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // 👈 hinzufügen
+import { CommonModule } from '@angular/common';
 import { StorageService } from '../../services/storage.service';
 import { BattleService } from '../../services/battle.service';
 import { Character } from '../../models';
@@ -8,8 +8,10 @@ import { CharacterCardComponent } from '../../components/character-card/characte
 
 @Component({
   standalone: true,
-  imports: [CommonModule, CharacterCardComponent], // 👈 hier CommonModule eintragen  templateUrl: './arena.page.html',
-  styleUrls: ['./arena.page.scss'],
+  selector: 'app-arena-page',
+  imports: [CommonModule, CharacterCardComponent],
+  templateUrl: './arena.page.html', // ✅ Pfad zur HTML-Datei
+  styleUrls: ['./arena.page.scss'], // ✅ Pfad zur SCSS-Datei
 })
 export class ArenaPage {
   deck: Character[] = [];
@@ -31,6 +33,7 @@ export class ArenaPage {
     this.result = undefined;
     this.resultLog = [];
   }
+
   findEnemy() {
     this.enemy = this.gen.generate();
     this.result = undefined;
@@ -43,7 +46,6 @@ export class ArenaPage {
     this.resultLog = r.log;
     if (r.winnerId === this.me.id) {
       this.me = this.battle.applyWinUpgrade(this.me);
-      // deck aktualisieren
       this.deck = this.deck.map((d) => (d.id === this.me!.id ? this.me! : d));
       this.store.saveDeck(this.deck);
       this.result = { winner: this.me.name, loser: this.enemy.name };
