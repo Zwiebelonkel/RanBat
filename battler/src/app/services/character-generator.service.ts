@@ -306,6 +306,6 @@ export class CharacterGeneratorService {
       '-eus',
     ];
     const n = `${this.pick(rng, prefixes)}${this.pick(rng, suffixes)}`;
-    return `${n} der/die ${race} (${tier})`;
+    return n;
   }
 }
