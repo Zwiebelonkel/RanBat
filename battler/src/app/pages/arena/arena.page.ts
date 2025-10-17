@@ -35,6 +35,10 @@ export class ArenaPage {
     private currency: CurrencyService
   ) {
     this.deck = this.storage.loadDeck();
+    if (this.deck.length > 0) {
+      this.char1 = this.deck[0];
+    }
+    this.char2 = this.characterGenerator.generate();
   }
 
   selectCharacter(index: string) {
@@ -42,7 +46,6 @@ export class ArenaPage {
   }
 
   fight() {
-    this.char2 = this.characterGenerator.generate();
     if (!this.char1 || !this.char2) return;
     const { winner, loser, log } = this.battleService.fight(this.char1, this.char2);
     this.result = { winner: winner.name, loser: loser.name };
