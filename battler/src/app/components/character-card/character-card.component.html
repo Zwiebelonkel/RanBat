@@ -1,43 +1,47 @@
-      <div class="card" [attr.data-rarity]="c.rarity">
-        <div class="header">
-          <span class="rarity">{{ c.rarity | uppercase }}</span>
-          <span class="tier">{{ c.tier }}</span>
-          <button class="delete-button" (click)="onDelete()">❌</button>
-        </div>
-        <img class="avatar" src="https://api.dicebear.com/8.x/pixelart/svg?seed={{c.id}}" alt="Avatar">
-        <h3 class="name">{{ c.name }}</h3>
-        <p class="race">Rasse: {{ c.race }}</p>
-        <div class="line"></div>
-      
-        <div class="traits">
-          <div>
-            Waffe: <strong>{{ c.weapon ?? "—" }}</strong>
-          </div>
-          <div>
-            Power: <strong>{{ c.power ?? "—" }}</strong>
-          </div>
-        </div>
-      
-        <div class="stats-container" *ngIf="displayStats.length">
-          <div class="line"></div>
-          <h4>Stats</h4>
-          <div class="stats">
-            <div *ngIf="displayStats.includes('strength')">
-              STR <strong>{{ c.stats.strength }}</strong>
-            </div>
-            <div *ngIf="displayStats.includes('stamina')">
-              STA <strong>{{ c.stats.stamina }}</strong>
-            </div>
-            <div *ngIf="displayStats.includes('speed')">
-              SPD <strong>{{ c.stats.speed }}</strong>
-            </div>
-            <div *ngIf="displayStats.includes('defense')">
-              DEF <strong>{{ c.stats.defense }}</strong>
-            </div>
-          </div>
-        </div>
-      
-        <div class="total-stats" *ngIf="displayStats.length === 4">
-          Gesamt: <strong>{{ total }}</strong>
-        </div>
+<div class="card" [attr.data-rarity]="c.rarity">
+  <div class="header">
+    <span class="rarity">{{ c.rarity | uppercase }}</span>
+    <span class="tier">{{ c.tier }}</span>
+    <button class="delete-button" (click)="onDelete()">❌</button>
+  </div>
+  <img
+    class="avatar"
+    src="https://api.dicebear.com/8.x/pixel-art/svg?seed={{ c.id }}"
+    alt="Avatar"
+  />
+  <h3 class="name">{{ c.name }}</h3>
+  <p class="race">Rasse: {{ c.race }}</p>
+  <div class="line"></div>
+
+  <div class="traits">
+    <div>
+      Waffe: <strong>{{ c.weapon ?? "—" }}</strong>
+    </div>
+    <div>
+      Power: <strong>{{ c.power ?? "—" }}</strong>
+    </div>
+  </div>
+
+  <div class="stats-container" *ngIf="displayStats.length">
+    <div class="line"></div>
+    <h4>Stats</h4>
+    <div class="stats">
+      <div *ngIf="displayStats.includes('strength')">
+        STR <strong>{{ c.stats.strength }}</strong>
       </div>
+      <div *ngIf="displayStats.includes('stamina')">
+        STA <strong>{{ c.stats.stamina }}</strong>
+      </div>
+      <div *ngIf="displayStats.includes('speed')">
+        SPD <strong>{{ c.stats.speed }}</strong>
+      </div>
+      <div *ngIf="displayStats.includes('defense')">
+        DEF <strong>{{ c.stats.defense }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="total-stats" *ngIf="displayStats.length === 4">
+    Gesamt: <strong>{{ total }}</strong>
+  </div>
+</div>
