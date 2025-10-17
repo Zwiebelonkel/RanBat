@@ -17,6 +17,7 @@ export class CharacterCardComponent implements OnInit {
   @Output() delete = new EventEmitter<void>();
 
   displayStats: string[] = [];
+  xpForNextLevel = 0;
 
   ngOnInit() {
     if (this.animated) {
@@ -24,6 +25,16 @@ export class CharacterCardComponent implements OnInit {
     } else {
       this.displayStats = ['strength', 'stamina', 'speed', 'defense'];
     }
+    this.xpForNextLevel = this.getExperienceForNextLevel(this.c.level);
+  }
+
+  get xpProgress() {
+    if (this.xpForNextLevel === 0) return 0;
+    return (this.c.xp / this.xpForNextLevel) * 100;
+  }
+
+  private getExperienceForNextLevel(level: number): number {
+    return Math.floor(100 * Math.pow(level, 1.5));
   }
 
   revealStats() {

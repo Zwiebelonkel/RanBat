@@ -1,134 +1,38 @@
 .card {
-  transition: all 0.3s ease;
   border-radius: 14px;
   padding: 14px;
   border: 2px solid #ddd;
   background: linear-gradient(180deg, #424242, #202020);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   width: 320px;
-  height: 450px;
   display: flex;
   flex-direction: column;
 
-  &[data-rarity="rare"] {
-    border-color: #4dabf7;
-  }
-  &[data-rarity="epic"] {
-    border-color: #845ef7;
-  }
-  &[data-rarity="legendary"] {
-    border-color: #fab005;
-  }
-  &[data-rarity="exotic"] {
-    border-color: #ff0000;
-  }
-  &[data-rarity="mystical"] {
-    border-image: linear-gradient(
-        45deg,
-        #ff0000,
-        #ff7f00,
-        #ffff00,
-        #00ff00,
-        #0000ff,
-        #4b0082,
-        #9400d3
-      )
-      1;
-  }
+  &[data-rarity="rare"] { border-color: #4dabf7; }
+  &[data-rarity="epic"] { border-color: #845ef7; }
+  &[data-rarity="legendary"] { border-color: #fab005; }
+  &[data-rarity="exotic"] { border-color: #ff0000; }
+  &[data-rarity="mystical"] { border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 1; }
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    opacity: 0.8;
-  }
-
-  .avatar {
-    display: block;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #f5f5f5;
-    margin: 12px auto 8px;
-    background: #333;
-  }
-
-  .name {
-    margin: 0 0 4px;
-    font-size: 18px;
-    text-align: center;
-  }
-  .race {
-    margin: 0 0 8px;
-    text-align: center;
-    opacity: 0.8;
-  }
-  .line {
-    height: 1px;
-    background: #e9ecef;
-    margin: 8px 0;
-  }
-
-  .traits {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    margin-bottom: 8px;
-    font-size: 14px;
-    flex-grow: 1;
-  }
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    div {
-      background: #444;
-      padding: 8px;
-      border-radius: 8px;
-      text-align: center;
-      label {
-        display: block;
-        font-size: 11px;
-        letter-spacing: 0.08em;
-        opacity: 0.7;
-      }
-      span {
-        font-weight: 700;
-        font-size: 16px;
-      }
+  .header { display: flex; justify-content: space-between; align-items: center; font-size: 12px; opacity: 0.8; }
+  .avatar { display: block; width: 80px; height: 80px; border-radius: 50%; border: 3px solid #f5f5f5; margin: 12px auto 8px; background: #333; }
+  .name { margin: 0 0 4px; font-size: 18px; text-align: center; }
+  .race { margin: 0 0 8px; text-align: center; opacity: 0.8; }
+  .line { height: 1px; background: #e9ecef; margin: 8px 0; }
+  .traits { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; font-size: 14px; flex-grow: 1; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    div { background: #444; padding: 8px; border-radius: 8px; text-align: center;
+      label { display: block; font-size: 11px; letter-spacing: .08em; opacity: .7; }
+      span { font-weight: 700; font-size: 16px; }
     }
   }
-  .footer {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    font-size: 13px;
-    opacity: 0.85;
-  }
+  .footer { margin-top: 10px; display: flex; justify-content: center; font-size: 13px; opacity: 0.85; }
+  .delete-button { background: none; border: none; cursor: pointer; padding: 0; font-size: 16px; }
+  .total-stats { margin-top: 1rem; }
+  .card.loser { background-color: #ffdddd; }
+  .rarity { font-weight: bold; }
 
-  .delete-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    font-size: 16px;
-  }
-
-  .total-stats {
-    margin-top: 1rem;
-  }
-  .card.loser {
-    background-color: #ffdddd;
-  }
-
-  .rarity {
-    font-weight: bold;
-  }
-}
-
-.card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  .xp-bar-container { background-color: #555; border-radius: 5px; height: 16px; margin: 8px 0; position: relative; width: 100%; }
+  .xp-bar { background-color: #4caf50; border-radius: 5px; height: 100%; }
+  .xp-text { color: white; font-size: 10px; left: 50%; position: absolute; top: 50%; transform: translate(-50%, -50%); }
 }

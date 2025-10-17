@@ -12,6 +12,11 @@
   <h2 class="name">{{ c.name }}</h2>
   <p class="race">{{ c.race }} ({{ c.tier }})</p>
 
+  <div class="xp-bar-container">
+    <div class="xp-bar" [style.width.%]="xpProgress"></div>
+    <span class="xp-text">{{ c.xp }} / {{ xpForNextLevel }}</span>
+  </div>
+
   <div class="line"></div>
 
   <div class="traits">
