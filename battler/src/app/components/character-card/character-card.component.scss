@@ -2,7 +2,7 @@
   border-radius: 14px;
   padding: 14px;
   border: 2px solid #ddd;
-  background: linear-gradient(180deg, #fafafa, #fff);
+  background: linear-gradient(180deg, #424242, #202020);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   width: 320px;
 
@@ -48,7 +48,7 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 8px;
     div {
-      background: #f6f8fa;
+      background: #444;
       padding: 8px;
       border-radius: 8px;
       text-align: center;
