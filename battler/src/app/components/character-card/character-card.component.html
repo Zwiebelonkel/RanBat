@@ -1,6 +1,9 @@
 <div class="card" [attr.data-rarity]="c.rarity" [class.loser]="isLoser">
   <div class="header">
     <span>Lvl {{ c.level }}</span>
+    <div class="rarity" [attr.data-rarity]="c.rarity">
+      {{ c.rarity | titlecase }}
+    </div>
     <button *ngIf="showDelete" (click)="onDelete()" class="delete-button">X</button>
   </div>
 
@@ -37,8 +40,5 @@
 
   <div class="footer">
     <div class="total-stats">Total: {{ total }}</div>
-    <div class="rarity" [attr.data-rarity]="c.rarity">
-      {{ c.rarity | titlecase }}
-    </div>
   </div>
 </div>
