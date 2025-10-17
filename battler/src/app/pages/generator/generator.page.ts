@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { CharacterGeneratorService } from '../../services/character-generator.service';
 import { StorageService } from '../../services/storage.service';
 import { Character } from '../../models';
@@ -6,7 +7,7 @@ import { CharacterCardComponent } from '../../components/character-card/characte
 
 @Component({
   standalone: true,
-  imports: [CharacterCardComponent],
+  imports: [CharacterCardComponent, CommonModule],
   templateUrl: './generator.page.html',
   styleUrls: ['./generator.page.scss'],
 })

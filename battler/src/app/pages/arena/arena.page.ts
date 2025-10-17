@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // 👈 hinzufügen
 import { StorageService } from '../../services/storage.service';
 import { BattleService } from '../../services/battle.service';
 import { Character } from '../../models';
@@ -7,8 +8,7 @@ import { CharacterCardComponent } from '../../components/character-card/characte
 
 @Component({
   standalone: true,
-  imports: [CharacterCardComponent],
-  templateUrl: './arena.page.html',
+  imports: [CommonModule, CharacterCardComponent], // 👈 hier CommonModule eintragen  templateUrl: './arena.page.html',
   styleUrls: ['./arena.page.scss'],
 })
 export class ArenaPage {
