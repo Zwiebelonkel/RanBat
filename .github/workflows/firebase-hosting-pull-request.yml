@@ -1,11 +1,17 @@
+# Firebase Hosting deploy
 name: Deploy to Firebase Hosting
 
 on:
+  # 👉 läuft bei Push auf main oder GPT
   push:
     branches:
       - main
       - GPT
+
+  # 👉 läuft bei jedem Pull Request
   pull_request:
+
+  # 👉 optional: manuell über "Run workflow"
   workflow_dispatch:
 
 permissions:
@@ -34,7 +40,7 @@ jobs:
           npm run build
           mv dist/battler/browser/index.csg.html dist/battler/browser/index.html || echo "No rename needed"
 
-      # ✅ Vorschau-Deploy für Pull Requests
+      # Vorschau-Deploy bei Pull Requests
       - name: Deploy preview (Pull Request)
         if: github.event_name == 'pull_request'
         uses: FirebaseExtended/action-hosting-deploy@v0
@@ -43,10 +49,10 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_DARKESTBATTLCARDS }}
           projectId: darkestbattlcards
           entryPoint: battler
-          channelId: pr-${{ github.event.number }}    # 👈 HIER ist das fehlende Argument!
+          channelId: pr-${{ github.event.number }}
           expires: 7d
 
-      # ✅ Live-Deploy bei Push auf main/GPT oder manuellem Start
+      # Live-Deploy bei Push auf main/GPT
       - name: Deploy live (Push)
         if: github.event_name != 'pull_request'
         uses: FirebaseExtended/action-hosting-deploy@v0
