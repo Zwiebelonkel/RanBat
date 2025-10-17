@@ -15,4 +15,9 @@ export class CollectionPage {
   constructor(private store: StorageService) {
     this.deck = this.store.loadDeck();
   }
+
+  deleteCard(character: Character) {
+    this.deck = this.deck.filter((c) => c.id !== character.id);
+    this.store.saveDeck(this.deck);
+  }
 }

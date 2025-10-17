@@ -1,4 +1,4 @@
 <h2>Sammlung</h2>
 <div class="deck-container">
-  <app-character-card *ngFor="let c of deck" [c]="c"></app-character-card>
+  <app-character-card *ngFor="let c of deck" [c]="c" (delete)="deleteCard(c)"></app-character-card>
 </div>
