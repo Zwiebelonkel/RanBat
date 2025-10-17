@@ -1,0 +1,38 @@
+<div class="card" [attr.data-rarity]="c.rarity">
+  <div class="header">
+    <span class="rarity">{{ c.rarity | uppercase }}</span>
+    <span class="tier">{{ c.tier }}</span>
+  </div>
+  <h3 class="name">{{ c.name }}</h3>
+  <p class="race">Rasse: {{ c.race }}</p>
+  <div class="line"></div>
+
+  <div class="traits">
+    <div>
+      Waffe: <strong>{{ c.weapon ?? "—" }}</strong>
+    </div>
+    <div>
+      Power: <strong>{{ c.power ?? "—" }}</strong>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div>
+      <label>STR</label><span>{{ c.stats.strength }}</span>
+    </div>
+    <div>
+      <label>SPD</label><span>{{ c.stats.speed }}</span>
+    </div>
+    <div>
+      <label>STA</label><span>{{ c.stats.stamina }}</span>
+    </div>
+    <div>
+      <label>DEF</label><span>{{ c.stats.defense }}</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>Level {{ c.level }}</span>
+    <span>Summe {{ total }}</span>
+  </div>
+</div>

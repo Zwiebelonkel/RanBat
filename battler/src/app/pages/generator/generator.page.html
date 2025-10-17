@@ -1,0 +1,12 @@
+<h2>Neue Karte generieren</h2>
+<button (click)="create()">🎲 Zufällige Karte</button>
+<button (click)="save()" [disabled]="!last">💾 Speichern</button>
+
+<div *ngIf="last" style="margin-top: 12px">
+  <app-character-card [c]="last"></app-character-card>
+</div>
+
+<h3 style="margin-top: 20px">Dein Deck ({{ deck.length }})</h3>
+<div style="display: flex; flex-wrap: wrap; gap: 12px">
+  <app-character-card *ngFor="let c of deck" [c]="c"></app-character-card>
+</div>
