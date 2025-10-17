@@ -2,33 +2,35 @@
 
 <section>
   <h3>1) Wähle deine Karte</h3>
-  <div style="display: flex; gap: 12px; flex-wrap: wrap">
+  <div class="character-selection">
     <app-character-card
       *ngFor="let c of deck"
       [c]="c"
       (click)="pickMine(c)"
+      [class.selected]="c.id === me?.id"
     ></app-character-card>
   </div>
 </section>
 
-<section style="margin-top: 16px">
+<section>
   <h3>2) Gegner suchen</h3>
   <button (click)="findEnemy()">🔍 Zufallsgegner</button>
 </section>
 
-<div style="display: flex; gap: 24px; margin-top: 16px" *ngIf="me || enemy">
+<div class="fight-container" *ngIf="me || enemy">
   <app-character-card *ngIf="me" [c]="me!"></app-character-card>
+  <div *ngIf="me && enemy" class="vs-icon">VS</div>
   <app-character-card *ngIf="enemy" [c]="enemy!"></app-character-card>
 </div>
 
-<section style="margin-top: 16px" *ngIf="me && enemy">
+<section *ngIf="me && enemy">
   <h3>3) Kampf</h3>
   <button (click)="fight()">⚔️ Fight!</button>
-  <div *ngIf="result" style="margin-top: 8px">
+  <div *ngIf="result" class="result">
     <strong>Gewinner:</strong> {{ result?.winner }} — <em>Verlierer:</em> {{
     result?.loser }}
   </div>
-  <ul>
+  <ul class="log">
     <li *ngFor="let line of resultLog">{{ line }}</li>
   </ul>
 </section>

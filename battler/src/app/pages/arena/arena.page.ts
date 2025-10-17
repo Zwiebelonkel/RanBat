@@ -5,13 +5,14 @@ import { BattleService } from '../../services/battle.service';
 import { Character } from '../../models';
 import { CharacterGeneratorService } from '../../services/character-generator.service';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
+import { CurrencyService } from '../../services/currency.service';
 
 @Component({
   standalone: true,
   selector: 'app-arena-page',
   imports: [CommonModule, CharacterCardComponent],
-  templateUrl: './arena.page.html', // ✅ Pfad zur HTML-Datei
-  styleUrls: ['./arena.page.scss'], // ✅ Pfad zur SCSS-Datei
+  templateUrl: './arena.page.html',
+  styleUrls: ['./arena.page.scss'],
 })
 export class ArenaPage {
   deck: Character[] = [];
@@ -23,7 +24,8 @@ export class ArenaPage {
   constructor(
     private store: StorageService,
     private battle: BattleService,
-    private gen: CharacterGeneratorService
+    private gen: CharacterGeneratorService,
+    private currency: CurrencyService
   ) {
     this.deck = this.store.loadDeck();
   }
@@ -49,8 +51,10 @@ export class ArenaPage {
       this.deck = this.deck.map((d) => (d.id === this.me!.id ? this.me! : d));
       this.store.saveDeck(this.deck);
       this.result = { winner: this.me.name, loser: this.enemy.name };
+      this.currency.addGold(100);
     } else {
       this.result = { winner: this.enemy.name, loser: this.me.name };
+      this.currency.addGold(25);
     }
   }
 }

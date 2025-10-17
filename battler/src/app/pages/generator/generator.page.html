@@ -1,12 +1,14 @@
 <h2>Neue Karte generieren</h2>
-<button (click)="create()">🎲 Zufällige Karte</button>
-<button (click)="save()" [disabled]="!last">💾 Speichern</button>
+<div class="actions">
+    <button (click)="create()" [disabled]="(gold$ | async) < 100">🎲 Zufällige Karte (100 Gold)</button>
+    <button (click)="save()" [disabled]="!last">💾 Speichern</button>
+</div>
 
-<div *ngIf="last" style="margin-top: 12px">
+<div *ngIf="last" class="last-card">
   <app-character-card [c]="last"></app-character-card>
 </div>
 
-<h3 style="margin-top: 20px">Dein Deck ({{ deck.length }})</h3>
-<div style="display: flex; flex-wrap: wrap; gap: 12px">
+<h3>Dein Deck ({{ deck.length }})</h3>
+<div class="deck-container">
   <app-character-card *ngFor="let c of deck" [c]="c"></app-character-card>
 </div>
