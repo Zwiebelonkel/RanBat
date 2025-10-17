@@ -16,6 +16,26 @@ function makeRng(seed: number) {
 
 @Injectable({ providedIn: 'root' })
 export class CharacterGeneratorService {
+  private humanNames = [
+    'Adam', 'Aaron', 'Abraham', 'Albert', 'Alex', 'Alfred', 'Andrew', 'Angel', 'Anthony', 'Arthur', 
+    'Barry', 'Ben', 'Benjamin', 'Bill', 'Billy', 'Bob', 'Bobby', 'Brad', 'Brandon', 'Brian', 
+    'Carl', 'Carlos', 'Charles', 'Chris', 'Christian', 'Christopher', 'Cole', 'Colin', 'Craig', 
+    'Dan', 'Daniel', 'David', 'Dennis', 'Derek', 'Don', 'Donald', 'Douglas', 
+    'Earl', 'Eddie', 'Edward', 'Eric', 'Ethan', 
+    'Frank', 'Fred', 
+    'Gary', 'George', 'Gerald', 'Gordon', 'Greg', 'Harry', 'Henry', 
+    'Jack', 'Jacob', 'James', 'Jason', 'Jeff', 'Jeremy', 'Jerry', 'Jesse', 'Jim', 'Jimmy', 'Joe', 'John', 'Jonathan', 'Jordan', 'Jose', 'Joseph', 'Juan', 'Justin', 
+    'Keith', 'Ken', 'Kevin', 'Kyle', 
+    'Larry', 'Leon', 'Lewis', 'Logan', 'Louis', 
+    'Mark', 'Martin', 'Matthew', 'Michael', 'Mike', 'Nathan', 'Neil', 'Nicholas', 'Noah', 
+    'Patrick', 'Paul', 'Peter', 'Philip', 
+    'Randy', 'Ray', 'Raymond', 'Richard', 'Robert', 'Roger', 'Ronald', 'Roy', 'Ryan', 
+    'Sam', 'Samuel', 'Scott', 'Sean', 'Shane', 'Shawn', 'Stephen', 'Steve', 'Steven', 
+    'Terry', 'Thomas', 'Tim', 'Timothy', 'Todd', 'Tom', 'Tony', 'Tyler', 
+    'Vincent', 
+    'Walter', 'Wayne', 'Will', 'William', 'Willie', 
+    'Zachary'
+  ];
   // 50+ Einträge je Pool – hier exemplarisch (erweitere einfach die Arrays)
   private races = [
     'Mensch',
@@ -264,7 +284,7 @@ export class CharacterGeneratorService {
 
     return {
       id: uuid(),
-      name: this.makeName(rng, race, tier),
+      name: this.makeName(rng),
       seed: realSeed,
       rarity,
       tier,
@@ -280,32 +300,7 @@ export class CharacterGeneratorService {
     };
   }
 
-  private makeName(rng: () => number, race: string, tier: Tier): string {
-    const prefixes = [
-      'Ara',
-      'Vor',
-      'Zek',
-      'Tal',
-      'Mor',
-      'Lys',
-      'Ken',
-      'Rha',
-      'Ith',
-      'Sul',
-    ];
-    const suffixes = [
-      '-ion',
-      '-ar',
-      '-en',
-      '-os',
-      '-eth',
-      '-ael',
-      '-yr',
-      '-oth',
-      '-in',
-      '-eus',
-    ];
-    const n = `${this.pick(rng, prefixes)}${this.pick(rng, suffixes)}`;
-    return n;
+  private makeName(rng: () => number): string {
+    return this.pick(rng, this.humanNames);
   }
 }
