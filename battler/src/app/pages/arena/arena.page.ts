@@ -34,7 +34,7 @@ export class ArenaPage {
     private characterGenerator: CharacterGeneratorService,
     private currency: CurrencyService
   ) {
-    this.deck = this.storage.getCharacters();
+    this.deck = this.storage.loadDeck();
     this.char1 = this.deck[0];
     this.char2 = this.characterGenerator.generate();
   }
@@ -46,9 +46,9 @@ export class ArenaPage {
     this.resultLog = log;
 
     if (winner.id === this.char1.id) {
-      this.currency.add(10);
+      this.currency.addGold(10);
     } else {
-      this.currency.subtract(5);
+      this.currency.spendGold(5);
     }
   }
 }
