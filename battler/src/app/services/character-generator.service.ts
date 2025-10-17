@@ -36,6 +36,20 @@ export class CharacterGeneratorService {
     'Walter', 'Wayne', 'Will', 'William', 'Willie', 
     'Zachary'
   ];
+
+  private humanSurnames = [
+    'Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 
+    'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin', 
+    'Lee', 'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson', 
+    'Walker', 'Young', 'Allen', 'King', 'Wright', 'Scott', 'Torres', 'Nguyen', 'Hill', 'Flores', 
+    'Green', 'Adams', 'Nelson', 'Baker', 'Hall', 'Rivera', 'Campbell', 'Mitchell', 'Carter', 'Roberts', 
+    'Gomez', 'Phillips', 'Evans', 'Turner', 'Diaz', 'Parker', 'Cruz', 'Edwards', 'Collins', 'Reyes', 
+    'Stewart', 'Morris', 'Morales', 'Murphy', 'Cook', 'Rogers', 'Gutierrez', 'Ortiz', 'Morgan', 'Cooper', 
+    'Peterson', 'Bailey', 'Reed', 'Kelly', 'Howard', 'Ramos', 'Kim', 'Cox', 'Ward', 'Richardson', 
+    'Watson', 'Brooks', 'Chavez', 'Wood', 'James', 'Bennet', 'Gray', 'Mendoza', 'Ruiz', 'Hughes', 
+    'Price', 'Alvarez', 'Castillo', 'Sanders', 'Patel', 'Myers', 'Long', 'Ross', 'Foster', 'Jimenez'
+  ];
+
   // 50+ Einträge je Pool – hier exemplarisch (erweitere einfach die Arrays)
   private races = [
     'Mensch',
@@ -218,6 +232,8 @@ export class CharacterGeneratorService {
     { rarity: 'rare', weight: 25, spread: 9 },
     { rarity: 'epic', weight: 13, spread: 12 },
     { rarity: 'legendary', weight: 7, spread: 16 },
+    { rarity: 'exotic', weight: 4, spread: 20 },
+    { rarity: 'mystical', weight: 1, spread: 25 },
   ];
 
   private pickWeighted<T>(
@@ -301,6 +317,8 @@ export class CharacterGeneratorService {
   }
 
   private makeName(rng: () => number): string {
-    return this.pick(rng, this.humanNames);
+    const firstName = this.pick(rng, this.humanNames);
+    const lastName = this.pick(rng, this.humanSurnames);
+    return `${firstName} ${lastName}`;
   }
 }

@@ -1,36 +1,13 @@
-<h2>Arena</h2>
-
-<section>
-  <h3>1) Wähle deine Karte</h3>
-  <div class="character-selection">
-    <app-character-card
-      *ngFor="let c of deck"
-      [c]="c"
-      (click)="pickMine(c)"
-      [class.selected]="c.id === me?.id"
-    ></app-character-card>
+<div class="container">
+  <div class="card-container" *ngIf="char1" [@slideIn]="true">
+    <app-character-card [character]="char1"></app-character-card>
   </div>
-</section>
-
-<section>
-  <h3>2) Gegner suchen</h3>
-  <button (click)="findEnemy()">🔍 Zufallsgegner</button>
-</section>
-
-<div class="fight-container" *ngIf="me || enemy">
-  <app-character-card *ngIf="me" [c]="me!"></app-character-card>
-  <div *ngIf="me && enemy" class="vs-icon">VS</div>
-  <app-character-card *ngIf="enemy" [c]="enemy!"></app-character-card>
+  <div class="vs-separator">VS</div>
+  <div class="card-container" *ngIf="char2" [@slideIn]="true">
+    <app-character-card [character]="char2"></app-character-card>
+  </div>
 </div>
 
-<section *ngIf="me && enemy">
-  <h3>3) Kampf</h3>
-  <button (click)="fight()">⚔️ Fight!</button>
-  <div *ngIf="result" class="result">
-    <strong>Gewinner:</strong> {{ result?.winner }} — <em>Verlierer:</em> {{
-    result?.loser }}
-  </div>
-  <ul class="log">
-    <li *ngFor="let line of resultLog">{{ line }}</li>
-  </ul>
-</section>
+<div class="actions" *ngIf="char1 && char2">
+  <button (click)="fight()">FIGHT!</button>
+</div>

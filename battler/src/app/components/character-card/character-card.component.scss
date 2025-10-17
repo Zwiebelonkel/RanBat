@@ -16,6 +16,12 @@
   &[data-rarity="legendary"] {
     border-color: #fab005;
   }
+  &[data-rarity="exotic"] {
+    border-color: #ff0000;
+  }
+  &[data-rarity="mystical"] {
+    border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 1;
+  }
 
   .header {
     display: flex;
