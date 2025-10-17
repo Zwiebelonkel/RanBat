@@ -13,5 +13,9 @@
 
 <h3>Dein Deck ({{ deck.length }})</h3>
 <div class="deck-container">
-  <app-character-card *ngFor="let c of deck" [c]="c"></app-character-card>
+  <app-character-card
+    *ngFor="let c of deck; let i = index"
+    [c]="c"
+    (delete)="deleteCard(i)"
+  ></app-character-card>
 </div>

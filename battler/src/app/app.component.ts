@@ -19,8 +19,4 @@ export class AppComponent {
   constructor(private currency: CurrencyService, private theme: ThemeService) {
     this.gold$ = this.currency.gold$;
   }
-
-  toggleTheme() {
-    this.theme.toggleTheme();
-  }
 }

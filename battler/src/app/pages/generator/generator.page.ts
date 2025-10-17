@@ -40,4 +40,9 @@ export class GeneratorPage {
     this.store.saveDeck(this.deck);
     this.last = undefined;
   }
+
+  deleteCard(index: number) {
+    this.deck.splice(index, 1);
+    this.store.saveDeck(this.deck);
+  }
 }
