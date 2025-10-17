@@ -1,0 +1,8 @@
+<div class="card-reveal-container" (click)="reveal()">
+  <div class="pack" [@slideOpen]="isRevealed ? 'open' : 'closed'">
+    <img src="/assets/card-pack.png" alt="Card Pack">
+  </div>
+  <div class="character-card">
+    <app-character-card [c]="c" [animated]="isRevealed"></app-character-card>
+  </div>
+</div>
