@@ -6,6 +6,7 @@ import { Character } from '../../models';
 import { CharacterGeneratorService } from '../../services/character-generator.service';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
 import { CurrencyService } from '../../services/currency.service';
+import { ExperienceService } from '../../services/experience.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
@@ -32,7 +33,8 @@ export class ArenaPage {
     private storage: StorageService,
     private battleService: BattleService,
     private characterGenerator: CharacterGeneratorService,
-    private currency: CurrencyService
+    private currency: CurrencyService,
+    private experienceService: ExperienceService
   ) {
     this.deck = this.storage.loadDeck();
     if (this.deck.length > 0) {
@@ -53,9 +55,11 @@ export class ArenaPage {
 
     if (winner.id === this.char1.id) {
       this.currency.addGold(10);
+      this.experienceService.addExperience(winner, 25);
     } else {
       this.currency.spendGold(5);
     }
+    this.deck = this.storage.loadDeck();
   }
 
   newOpponent() {
