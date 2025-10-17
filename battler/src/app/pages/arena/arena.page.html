@@ -1,15 +1,18 @@
 <div class="container">
-  <div class="card-container" *ngIf="char1" [@slideIn]="true">
-    <app-character-card [c]="char1"></app-character-card>
+  <div class="card-container">
+    <app-character-card *ngIf="char1" [c]="char1" [isLoser]="result?.loser === char1.name"></app-character-card>
   </div>
   <div class="vs-separator">VS</div>
-  <div class="card-container" *ngIf="char2" [@slideIn]="true">
-    <app-character-card [c]="char2"></app-character-card>
+  <div class="card-container">
+    <app-character-card *ngIf="char2" [c]="char2" [isLoser]="result?.loser === char2.name"></app-character-card>
   </div>
 </div>
 
-<div class="actions" *ngIf="char1 && char2">
-  <button (click)="fight()">FIGHT!</button>
+<div class="actions" *ngIf="!result">
+  <select #charSelect (change)="selectCharacter(charSelect.value)">
+    <option *ngFor="let char of deck; let i = index" [value]="i">{{char.name}}</option>
+  </select>
+  <button (click)="fight()" [disabled]="!char1">FIGHT!</button>
 </div>
 
 <div class="result" *ngIf="result">
@@ -18,4 +21,5 @@
   <div class="log">
     <p *ngFor="let entry of resultLog">{{ entry }}</p>
   </div>
+  <button (click)="newOpponent()">New Opponent</button>
 </div>

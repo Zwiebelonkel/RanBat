@@ -12,6 +12,8 @@ import { Character } from '../../models';
 export class CharacterCardComponent implements OnInit {
   @Input() c!: Character;
   @Input() animated = false;
+  @Input() showDelete = false;
+  @Input() isLoser = false;
   @Output() delete = new EventEmitter<void>();
 
   displayStats: string[] = [];

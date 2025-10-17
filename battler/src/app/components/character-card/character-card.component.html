@@ -1,47 +1,44 @@
-<div class="card" [attr.data-rarity]="c.rarity">
+<div class="card" [attr.data-rarity]="c.rarity" [class.loser]="isLoser">
   <div class="header">
-    <span class="rarity">{{ c.rarity | uppercase }}</span>
-    <span class="tier">{{ c.tier }}</span>
-    <button class="delete-button" (click)="onDelete()">❌</button>
+    <span>Lvl {{ c.level }}</span>
+    <button *ngIf="showDelete" (click)="onDelete()" class="delete-button">X</button>
   </div>
-  <img
-    class="avatar"
-    src="https://api.dicebear.com/8.x/pixel-art/svg?seed={{ c.id }}"
-    alt="Avatar"
-  />
-  <h3 class="name">{{ c.name }}</h3>
-  <p class="race">Rasse: {{ c.race }}</p>
+
+  <img [src]="'https://api.dicebear.com/7.x/pixel-art/svg?seed='+c.seed" alt="" class="avatar">
+
+  <h2 class="name">{{ c.name }}</h2>
+  <p class="race">{{ c.race }} ({{ c.tier }})</p>
+
   <div class="line"></div>
 
   <div class="traits">
-    <div>
-      Waffe: <strong>{{ c.weapon ?? "—" }}</strong>
+    <div *ngIf="c.hasWeapon">Waffe: {{ c.weapon }}</div>
+    <div *ngIf="c.hasPower">Power: {{ c.power }}</div>
+  </div>
+
+  <div class="stats">
+    <div *ngIf="displayStats.includes('strength')">
+      <label>STR</label>
+      <span>{{ c.stats.strength }}</span>
     </div>
-    <div>
-      Power: <strong>{{ c.power ?? "—" }}</strong>
+    <div *ngIf="displayStats.includes('stamina')">
+      <label>STA</label>
+      <span>{{ c.stats.stamina }}</span>
+    </div>
+    <div *ngIf="displayStats.includes('speed')">
+      <label>SPD</label>
+      <span>{{ c.stats.speed }}</span>
+    </div>
+    <div *ngIf="displayStats.includes('defense')">
+      <label>DEF</label>
+      <span>{{ c.stats.defense }}</span>
     </div>
   </div>
 
-  <div class="stats-container" *ngIf="displayStats.length">
-    <div class="line"></div>
-    <h4>Stats</h4>
-    <div class="stats">
-      <div *ngIf="displayStats.includes('strength')">
-        STR <strong>{{ c.stats.strength }}</strong>
-      </div>
-      <div *ngIf="displayStats.includes('stamina')">
-        STA <strong>{{ c.stats.stamina }}</strong>
-      </div>
-      <div *ngIf="displayStats.includes('speed')">
-        SPD <strong>{{ c.stats.speed }}</strong>
-      </div>
-      <div *ngIf="displayStats.includes('defense')">
-        DEF <strong>{{ c.stats.defense }}</strong>
-      </div>
+  <div class="footer">
+    <div class="total-stats">Total: {{ total }}</div>
+    <div class="rarity" [attr.data-rarity]="c.rarity">
+      {{ c.rarity | titlecase }}
     </div>
-  </div>
-
-  <div class="total-stats" *ngIf="displayStats.length === 4">
-    Gesamt: <strong>{{ total }}</strong>
   </div>
 </div>
