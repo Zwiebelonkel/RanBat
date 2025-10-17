@@ -28,7 +28,7 @@ export class GeneratorPage {
   }
 
   create() {
-    if (this.currency.spendGold(100)) {
+    if (this.currency.spendGold(0)) {
       const c = this.gen.generate();
       this.last = c;
     }
