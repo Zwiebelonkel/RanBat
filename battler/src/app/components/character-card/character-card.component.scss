@@ -1,10 +1,12 @@
 .card {
+  transition: all 0.3s ease;
   border-radius: 14px;
   padding: 14px;
   border: 2px solid #ddd;
   background: linear-gradient(180deg, #424242, #202020);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   width: 320px;
+  height: 450px;
   display: flex;
   flex-direction: column;
 
@@ -21,7 +23,17 @@
     border-color: #ff0000;
   }
   &[data-rarity="mystical"] {
-    border-image: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3) 1;
+    border-image: linear-gradient(
+        45deg,
+        #ff0000,
+        #ff7f00,
+        #ffff00,
+        #00ff00,
+        #0000ff,
+        #4b0082,
+        #9400d3
+      )
+      1;
   }
 
   .header {
@@ -109,8 +121,14 @@
   .card.loser {
     background-color: #ffdddd;
   }
-  
+
   .rarity {
     font-weight: bold;
   }
+}
+
+.card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 }
