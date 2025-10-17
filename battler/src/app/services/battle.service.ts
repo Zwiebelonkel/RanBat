@@ -17,6 +17,8 @@ export class BattleService {
     rare: 1.06,
     epic: 1.12,
     legendary: 1.2,
+    exotic: 1.25,
+    mystical: 1.35,
   };
 
   private weaponMod(weapon?: string): number {
@@ -79,10 +81,10 @@ export class BattleService {
       if (winsA === 2 || winsB === 2) break; // Best-of-3
     }
 
-    const winnerId = winsA > winsB ? a.id : b.id;
-    const loserId = winsA > winsB ? b.id : a.id;
+    const winner = winsA > winsB ? a : b;
+    const loser = winsA > winsB ? b : a;
 
-    return { winnerId, loserId, rounds: winsA + winsB, log, ratingA, ratingB };
+    return { winner, loser, log };
   }
 
   applyWinUpgrade(winner: Character): Character {

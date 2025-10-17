@@ -37,3 +37,9 @@ export interface Character {
   xp: number;
   createdAt: number;
 }
+
+export interface BattleResult {
+  winner: Character;
+  loser: Character;
+  log: string[];
+}

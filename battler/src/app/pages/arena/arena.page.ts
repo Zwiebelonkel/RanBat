@@ -6,6 +6,7 @@ import { Character } from '../../models';
 import { CharacterGeneratorService } from '../../services/character-generator.service';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
 import { CurrencyService } from '../../services/currency.service';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   standalone: true,
@@ -13,48 +14,41 @@ import { CurrencyService } from '../../services/currency.service';
   imports: [CommonModule, CharacterCardComponent],
   templateUrl: './arena.page.html',
   styleUrls: ['./arena.page.scss'],
+  animations: [
+    trigger('slideIn', [
+      state('void', style({ transform: 'translateY(-100%)', opacity: 0 })),
+      transition(':enter', [animate('300ms ease-out', style({ transform: 'translateY(0)', opacity: 1 }))]),
+    ]),
+  ],
 })
 export class ArenaPage {
   deck: Character[] = [];
-  me?: Character;
-  enemy?: Character;
+  char1?: Character;
+  char2?: Character;
   resultLog: string[] = [];
   result?: { winner: string; loser: string };
 
   constructor(
-    private store: StorageService,
-    private battle: BattleService,
-    private gen: CharacterGeneratorService,
+    private storage: StorageService,
+    private battleService: BattleService,
+    private characterGenerator: CharacterGeneratorService,
     private currency: CurrencyService
   ) {
-    this.deck = this.store.loadDeck();
-  }
-
-  pickMine(c: Character) {
-    this.me = c;
-    this.result = undefined;
-    this.resultLog = [];
-  }
-
-  findEnemy() {
-    this.enemy = this.gen.generate();
-    this.result = undefined;
-    this.resultLog = [];
+    this.deck = this.storage.getCharacters();
+    this.char1 = this.deck[0];
+    this.char2 = this.characterGenerator.generate();
   }
 
   fight() {
-    if (!this.me || !this.enemy) return;
-    const r = this.battle.fight(this.me, this.enemy);
-    this.resultLog = r.log;
-    if (r.winnerId === this.me.id) {
-      this.me = this.battle.applyWinUpgrade(this.me);
-      this.deck = this.deck.map((d) => (d.id === this.me!.id ? this.me! : d));
-      this.store.saveDeck(this.deck);
-      this.result = { winner: this.me.name, loser: this.enemy.name };
-      this.currency.addGold(100);
+    if (!this.char1 || !this.char2) return;
+    const { winner, loser, log } = this.battleService.fight(this.char1, this.char2);
+    this.result = { winner: winner.name, loser: loser.name };
+    this.resultLog = log;
+
+    if (winner.id === this.char1.id) {
+      this.currency.add(10);
     } else {
-      this.result = { winner: this.enemy.name, loser: this.me.name };
-      this.currency.addGold(25);
+      this.currency.subtract(5);
     }
   }
 }
