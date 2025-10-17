@@ -1,6 +1,6 @@
 <h2>Neue Karte generieren</h2>
 <div class="actions">
-  <button (click)="create()" [disabled]="(gold$ | async) ?? 0 < 100">
+  <button (click)="create()" [disabled]="((gold$ | async) ?? 0) < 100">
     🎲 Zufällige Karte
   </button>
 
