@@ -28,18 +28,22 @@
     <div *ngIf="displayStats.includes('strength')">
       <label>STR</label>
       <span>{{ c.stats.strength }}</span>
+      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('strength')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('stamina')">
       <label>STA</label>
       <span>{{ c.stats.stamina }}</span>
+      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('stamina')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('speed')">
       <label>SPD</label>
       <span>{{ c.stats.speed }}</span>
+      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('speed')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('defense')">
       <label>DEF</label>
       <span>{{ c.stats.defense }}</span>
+      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('defense')"> reroll </button>
     </div>
   </div>
 

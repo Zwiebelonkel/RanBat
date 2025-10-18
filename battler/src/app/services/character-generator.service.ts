@@ -268,6 +268,18 @@ export class CharacterGeneratorService {
     return Math.min(max, Math.max(min, value + bonus));
   }
   
+  rerollStat(character: Character, stat: keyof Stats): Character {
+    const rng = makeRng(Math.random());
+    const newStatValue = this.rollStat(rng, character.rarity, 0);
+    
+    return {
+      ...character,
+      stats: {
+        ...character.stats,
+        [stat]: newStatValue,
+      },
+    };
+  }
 
   generate(seed?: number): Character {
     const realSeed = seed ?? Math.floor(Math.random() * 1e9);

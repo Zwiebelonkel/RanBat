@@ -8,8 +8,11 @@ export class ExperienceService {
 
   addExperience(character: Character, amount: number) {
     character.xp += amount;
-    if (character.xp >= this.getExperienceForNextLevel(character.level)) {
+    let xpForNextLevel = this.getExperienceForNextLevel(character.level);
+    while (character.xp >= xpForNextLevel) {
+      character.xp -= xpForNextLevel;
       this.levelUp(character);
+      xpForNextLevel = this.getExperienceForNextLevel(character.level);
     }
     const deck = this.storage.loadDeck();
     const charIndex = deck.findIndex(c => c.id === character.id);
@@ -21,7 +24,6 @@ export class ExperienceService {
 
   private levelUp(character: Character) {
     character.level++;
-    character.xp = 0;
     // Improve stats
     character.stats.strength += this.getStatIncrease();
     character.stats.stamina += this.getStatIncrease();

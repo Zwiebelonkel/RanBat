@@ -56,6 +56,7 @@ export class ArenaPage {
     if (winner.id === this.char1.id) {
       this.currency.addGold(10);
       this.experienceService.addExperience(winner, 25);
+      this.char1 = winner;
     } else {
       this.currency.spendGold(5);
     }

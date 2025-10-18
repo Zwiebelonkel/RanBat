@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Character } from '../../models';
+import { Character, Stats } from '../../models';
 
 @Component({
   selector: 'app-character-card',
@@ -13,8 +13,10 @@ export class CharacterCardComponent implements OnInit {
   @Input() c!: Character;
   @Input() animated = false;
   @Input() showDelete = false;
+  @Input() showReroll = false;
   @Input() isLoser = false;
   @Output() delete = new EventEmitter<void>();
+  @Output() reroll = new EventEmitter<{ character: Character, stat: keyof Stats }>();
 
   displayStats: string[] = [];
   xpForNextLevel = 0;
@@ -56,5 +58,9 @@ export class CharacterCardComponent implements OnInit {
 
   onDelete() {
     this.delete.emit();
+  }
+
+  onReroll(stat: keyof Stats) {
+    this.reroll.emit({ character: this.c, stat });
   }
 }
