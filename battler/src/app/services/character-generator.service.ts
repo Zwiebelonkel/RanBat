@@ -269,7 +269,7 @@ export class CharacterGeneratorService {
   }
   
   rerollStat(character: Character, stat: keyof Stats): Character {
-    const rng = makeRng(Math.random());
+    const rng = makeRng(Date.now());
     const newStatValue = this.rollStat(rng, character.rarity, 0);
     
     return {
