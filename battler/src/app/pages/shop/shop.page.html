@@ -1,6 +1,6 @@
 <div class="shop-container">
   <div class="balance">Your Gold: {{ (currency.gold$ | async) ?? 0 }}</div>
-  <button (click)="buyCard()" [disabled]="((currency.gold$ | async) ?? 0) < 10">Buy Card (10 Gold)</button>
+  <button class="btn" (click)="buyCard()" [disabled]="((currency.gold$ | async) ?? 0) < 10">Buy Card (10 Gold)</button>
 
   <div *ngIf="showReveal && newCard">
     <app-card-reveal [c]="newCard" (opened)="onCardOpened()"></app-card-reveal>

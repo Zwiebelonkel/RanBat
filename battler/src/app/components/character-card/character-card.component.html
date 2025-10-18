@@ -4,7 +4,7 @@
     <div class="rarity" [attr.data-rarity]="c.rarity">
       {{ c.rarity | titlecase }}
     </div>
-    <button *ngIf="showDelete" (click)="onDelete()" class="delete-button">X</button>
+    <button *ngIf="showDelete" (click)="onDelete()" class="btn">X</button>
   </div>
 
   <img [src]="'https://api.dicebear.com/7.x/pixel-art/svg?seed='+c.seed" alt="" class="avatar">
@@ -28,22 +28,22 @@
     <div *ngIf="displayStats.includes('strength')">
       <label>STR</label>
       <span>{{ c.stats.strength }}</span>
-      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('strength')"> reroll </button>
+      <button class="btn" *ngIf="showReroll" (click)="onReroll('strength')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('stamina')">
       <label>STA</label>
       <span>{{ c.stats.stamina }}</span>
-      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('stamina')"> reroll </button>
+      <button class="btn" *ngIf="showReroll" (click)="onReroll('stamina')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('speed')">
       <label>SPD</label>
       <span>{{ c.stats.speed }}</span>
-      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('speed')"> reroll </button>
+      <button class="btn" *ngIf="showReroll" (click)="onReroll('speed')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('defense')">
       <label>DEF</label>
       <span>{{ c.stats.defense }}</span>
-      <button class="reroll-button" *ngIf="showReroll" (click)="onReroll('defense')"> reroll </button>
+      <button class="btn" *ngIf="showReroll" (click)="onReroll('defense')"> reroll </button>
     </div>
   </div>
 

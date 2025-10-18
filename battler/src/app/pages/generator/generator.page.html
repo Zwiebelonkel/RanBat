@@ -1,10 +1,10 @@
 <h2>Neue Karte generieren</h2>
 <div class="actions">
-  <button (click)="create()" [disabled]="((gold$ | async) ?? 0) < 100">
+  <button class="btn" (click)="create()" [disabled]="((gold$ | async) ?? 0) < 100">
     🎲 Zufällige Karte
   </button>
 
-  <button (click)="save()" [disabled]="!last">💾 Speichern</button>
+  <button class="btn" (click)="save()" [disabled]="!last">💾 Speichern</button>
 </div>
 
 <div *ngIf="last" class="last-card">

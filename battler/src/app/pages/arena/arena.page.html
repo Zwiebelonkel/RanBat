@@ -12,7 +12,7 @@
   <select #charSelect (change)="selectCharacter(charSelect.value)">
     <option *ngFor="let char of deck; let i = index" [value]="i">{{char.name}}</option>
   </select>
-  <button (click)="fight()" [disabled]="!char1">FIGHT!</button>
+  <button class="btn" (click)="fight()" [disabled]="!char1">FIGHT!</button>
 </div>
 
 <div class="result" *ngIf="result">
@@ -21,5 +21,5 @@
   <div class="log">
     <p *ngFor="let entry of resultLog">{{ entry }}</p>
   </div>
-  <button (click)="newOpponent()">New Opponent</button>
+  <button class="btn" (click)="newOpponent()">New Opponent</button>
 </div>
