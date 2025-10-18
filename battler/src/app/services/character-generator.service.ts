@@ -252,17 +252,22 @@ export class CharacterGeneratorService {
     return arr[Math.floor(rng() * arr.length)];
   }
 
-  private rollStat(
-    rng: () => number,
-    baseSpread: number,
-    bonus: number
-  ): number {
-    // 1–50, beeinflusst durch Rarity-Spread & Tier-Bonus
-    const v = Math.floor(1 + rng() * 50);
-    // „spread“ zieht nach oben: wir addieren 0..spread
-    const uplift = Math.floor(rng() * baseSpread);
-    return Math.max(1, Math.min(50, v + uplift + bonus));
+  private rollStat(rng: () => number, rarity: Rarity, bonus: number): number {
+    // Definiere Min- und Max-Werte je Seltenheit
+    const ranges: Record<Rarity, { min: number; max: number }> = {
+      common: { min: 0, max: 10 },
+      rare: { min: 5, max: 20 },
+      epic: { min: 15, max: 35 },
+      legendary: { min: 30, max: 50 },
+      exotic: { min: 40, max: 75 },
+      mystical: { min: 50, max: 100 },
+    };
+  
+    const { min, max } = ranges[rarity];
+    const value = Math.floor(min + rng() * (max - min + 1));
+    return Math.min(max, Math.max(min, value + bonus));
   }
+  
 
   generate(seed?: number): Character {
     const realSeed = seed ?? Math.floor(Math.random() * 1e9);
@@ -291,12 +296,13 @@ export class CharacterGeneratorService {
         )
       : undefined;
 
-    const stats: Stats = {
-      strength: this.rollStat(rng, spread, statBonus),
-      speed: this.rollStat(rng, spread, statBonus),
-      stamina: this.rollStat(rng, spread, statBonus),
-      defense: this.rollStat(rng, spread, statBonus),
-    };
+      const stats: Stats = {
+        strength: this.rollStat(rng, rarity, statBonus),
+        speed: this.rollStat(rng, rarity, statBonus),
+        stamina: this.rollStat(rng, rarity, statBonus),
+        defense: this.rollStat(rng, rarity, statBonus),
+      };
+      
 
     return {
       id: uuid(),
