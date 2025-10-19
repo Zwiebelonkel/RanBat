@@ -11,7 +11,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 
 @Component({
   standalone: true,
-  selector: 'app-arena-page',
+  selector: 'app-arena-page',g
   imports: [CommonModule, CharacterCardComponent],
   templateUrl: './arena.page.html',
   styleUrls: ['./arena.page.scss'],
