@@ -67,7 +67,7 @@ async function addCharacter(character) {
     const { strength, speed, stamina, defense } = stats;
     await client.execute({
         sql: 'INSERT INTO cards (id, name, seed, rarity, tier, race, hasWeapon, weapon, hasPower, power, strength, speed, stamina, defense, createdAt) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-        args: [id, name, seed, rarity, tier, race, hasWeapon ? 1: 0, weapon, hasPower ? 1 : 0, power, strength, speed, stamina, defense, createdAt]
+        args: [id, name, seed, rarity, tier, race, hasWeapon ? 1: 0, weapon ?? null, hasPower ? 1 : 0, power ?? null, strength, speed, stamina, defense, createdAt]
     });
     return id;
 }
