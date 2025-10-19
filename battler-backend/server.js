@@ -8,10 +8,11 @@ app.use(express.json());
 const port = 3000;
 
 const corsOptions = {
-  origin: ['https://ranbat.onrender.com', 'http://localhost:4200']
+  origin: ['https://darkestbattlcards.web.app', 'http://localhost:4200']
 };
 
 app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle pre-flight requests for all routes
 
 app.get('/', (req, res) => {
   res.send('Hello from the battler backend!');
