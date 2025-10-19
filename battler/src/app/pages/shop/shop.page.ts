@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { Character } from '../../models';
 import { CardRevealComponent } from '../../components/card-reveal/card-reveal.component';
 import { CurrencyService } from '../../services/currency.service';
-import { CharacterGeneratorService } from '../../services/character-generator.service';
 import { DatabaseService } from '../../services/database.service';
 
 @Component({
@@ -14,28 +13,29 @@ import { DatabaseService } from '../../services/database.service';
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage {
+  public currency = inject(CurrencyService);
+  private databaseService = inject(DatabaseService);
+
   gold$: Observable<number>;
   showReveal = false;
   newCard?: Character;
 
-  constructor(
-    public currency: CurrencyService,
-    private characterGenerator: CharacterGeneratorService,
-    private databaseService: DatabaseService,
-  ) {
+  constructor() {
     this.gold$ = this.currency.gold$;
   }
 
   buyCard() {
     if (this.currency.spendGold(10)) {
-      this.newCard = this.characterGenerator.generateCharacter();
-      this.showReveal = true;
+        this.databaseService.addUserCard().subscribe(card => {
+            if (card) {
+                this.newCard = card;
+                this.showReveal = true;
+            }
+        });
     }
   }
 
   onCardOpened() {
-    if (this.newCard) {
-      this.databaseService.saveUserCard(this.newCard).subscribe();
-    }
+    // Nothing to do here anymore
   }
 }
