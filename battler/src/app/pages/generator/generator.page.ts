@@ -6,17 +6,19 @@ import { Character } from '../../models';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
 import { CurrencyService } from '../../services/currency.service';
 import { Observable } from 'rxjs';
+import { CardRevealComponent } from '../../components/card-reveal/card-reveal.component';
 
 @Component({
   standalone: true,
-  imports: [CharacterCardComponent, CommonModule],
+  imports: [CharacterCardComponent, CommonModule, CardRevealComponent],
   templateUrl: './generator.page.html',
   styleUrls: ['./generator.page.scss'],
 })
 export class GeneratorPage {
-  last?: Character;
   deck: Character[] = [];
   gold$: Observable<number>;
+  showReveal = false;
+  newCard?: Character;
 
   constructor(
     private gen: CharacterGeneratorService,
@@ -30,15 +32,17 @@ export class GeneratorPage {
   create() {
     if (this.currency.spendGold(0)) {
       const c = this.gen.generate();
-      this.last = c;
+      this.newCard = c;
+      this.showReveal = true;
     }
   }
 
-  save() {
-    if (!this.last) return;
-    this.deck.unshift(this.last);
+  onCardOpened() {
+    if (!this.newCard) return;
+    this.deck.unshift(this.newCard);
     this.store.saveDeck(this.deck);
-    this.last = undefined;
+    this.newCard = undefined;
+    this.showReveal = false;
   }
 
   deleteCard(index: number) {

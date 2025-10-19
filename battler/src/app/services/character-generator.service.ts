@@ -228,12 +228,12 @@ export class CharacterGeneratorService {
     weight: number;
     spread: number;
   }> = [
-    { rarity: 'common', weight: 55, spread: 5 },
-    { rarity: 'rare', weight: 25, spread: 9 },
-    { rarity: 'epic', weight: 13, spread: 12 },
-    { rarity: 'legendary', weight: 7, spread: 16 },
-    { rarity: 'exotic', weight: 4, spread: 20 },
-    { rarity: 'mystical', weight: 1, spread: 25 },
+    { rarity: 'common', weight: 1, spread: 5 },
+    { rarity: 'rare', weight: 1, spread: 9 },
+    { rarity: 'epic', weight: 1, spread: 12 },
+    { rarity: 'legendary', weight: 1, spread: 16 },
+    { rarity: 'exotic', weight: 1, spread: 20 },
+    { rarity: 'mystical', weight: 95, spread: 25 },
   ];
 
   private pickWeighted<T>(

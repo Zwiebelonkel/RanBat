@@ -1,4 +1,5 @@
 <div class="card-reveal-container" (click)="reveal()">
+  <canvas #confettiCanvas class="confetti-canvas"></canvas>
   <div class="pack" [@slideOpen]="isRevealed ? 'open' : 'closed'">
     <img src="/assets/card-pack.png" alt="Card Pack">
   </div>

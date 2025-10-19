@@ -3,12 +3,10 @@
   <button class="btn" (click)="create()" [disabled]="((gold$ | async) ?? 0) < 100">
     🎲 Zufällige Karte
   </button>
-
-  <button class="btn" (click)="save()" [disabled]="!last">💾 Speichern</button>
 </div>
 
-<div *ngIf="last" class="last-card">
-  <app-character-card [c]="last" [animated]="true"></app-character-card>
+<div *ngIf="showReveal && newCard">
+    <app-card-reveal [c]="newCard" (opened)="onCardOpened()"></app-card-reveal>
 </div>
 
 <h3>Dein Deck ({{ deck.length }})</h3>
