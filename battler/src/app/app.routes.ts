@@ -3,9 +3,11 @@ import { GeneratorPage } from './pages/generator/generator.page';
 import { ArenaPage } from './pages/arena/arena.page';
 import { CollectionPage } from './pages/collection/collection.page';
 import { ShopPage } from './pages/shop/shop.page';
+import { LoginComponent } from './components/login/login.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'generator', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', loadComponent: () => Promise.resolve(LoginComponent) },
   { path: 'generator', loadComponent: () => Promise.resolve(GeneratorPage) },
   { path: 'arena', loadComponent: () => Promise.resolve(ArenaPage) },
   { path: 'collection', loadComponent: () => Promise.resolve(CollectionPage) },

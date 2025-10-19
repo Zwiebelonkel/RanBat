@@ -1,0 +1,14 @@
+{
+  "name": "battler-backend",
+  "version": "1.0.0",
+  "description": "Backend for the battler game",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.15",
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
