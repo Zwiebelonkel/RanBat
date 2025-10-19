@@ -67,7 +67,8 @@
               "buildTarget": "battler:build:production"
             },
             "development": {
-              "buildTarget": "battler:build:development"
+              "buildTarget": "battler:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

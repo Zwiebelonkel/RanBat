@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from '../models';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User | null>;
   public currentUser$: Observable<User | null>;
   private isBrowser: boolean;
+  private apiUrl = environment.apiUrl;
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -31,7 +33,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<User> {
-    return this.http.post<User>('/api/login', { username, password }).pipe(
+    return this.http.post<User>(`${this.apiUrl}/api/login`, { username, password }).pipe(
       map(user => {
         this.currentUserSubject.next(user);
         return user;
@@ -40,7 +42,7 @@ export class AuthService {
   }
 
   register(username: string, password: string): Observable<User> {
-    return this.http.post<User>('/api/register', { username, password }).pipe(
+    return this.http.post<User>(`${this.apiUrl}/api/register`, { username, password }).pipe(
       map(user => {
         this.currentUserSubject.next(user);
         return user;
