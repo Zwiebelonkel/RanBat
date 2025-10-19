@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/api/login`, { username, password }).pipe(
+    return this.http.post<User>(`${this.apiUrl}/login`, { username, password }).pipe(
       map(user => {
         this.currentUserSubject.next(user);
         return user;
@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   register(username: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/api/register`, { username, password }).pipe(
+    return this.http.post<User>(`${this.apiUrl}/register`, { username, password }).pipe(
       map(user => {
         this.currentUserSubject.next(user);
         return user;
