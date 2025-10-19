@@ -1,24 +1,29 @@
+
 const express = require('express');
 const cors = require('cors');
 const { addCharacter, addUser, getUserByUsername, getUserById, addUserCard, getUserCards } = require('./database.js');
 const { generate } = require('./card-generator.js');
 
 const app = express();
+const api = express.Router();
+
 app.use(express.json());
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const corsOptions = {
   origin: ['https://darkestbattlcards.web.app', 'http://localhost:4200']
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle pre-flight requests for all routes
+app.options('*', cors(corsOptions)); // Handle pre-flight requests
 
+// Health check endpoint
 app.get('/', (req, res) => {
   res.send('Hello from the battler backend!');
 });
 
-app.post('/register', async (req, res) => {
+// API routes
+api.post('/register', async (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).send('Username and password are required');
@@ -36,7 +41,7 @@ app.post('/register', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
+api.post('/login', async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) {
       return res.status(400).send('Username and password are required');
@@ -53,7 +58,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get('/user/:id', async (req, res) => {
+api.get('/user/:id', async (req, res) => {
     const { id } = req.params;
     try {
         const user = await getUserById(id);
@@ -67,7 +72,21 @@ app.get('/user/:id', async (req, res) => {
     }
 });
 
-app.get('/user/:id/cards', async (req, res) => {
+api.get('/currency/gold/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const user = await getUserById(id);
+        if (!user) {
+            return res.status(404).send('User not found');
+        }
+        res.json({ gold: user.gold || 0 });
+    } catch (error) {
+        console.error('Error fetching gold for user ' + id, error);
+        res.status(500).send('An error occurred while fetching user gold');
+    }
+});
+
+api.get('/user/:id/cards', async (req, res) => {
     const { id } = req.params;
     try {
         const user = await getUserById(id);
@@ -82,7 +101,7 @@ app.get('/user/:id/cards', async (req, res) => {
     }
 });
 
-app.post('/user/:id/cards', async (req, res) => {
+api.post('/user/:id/cards', async (req, res) => {
     const { id } = req.params;
     try {
         const user = await getUserById(id);
@@ -98,6 +117,8 @@ app.post('/user/:id/cards', async (req, res) => {
         res.status(500).send('An error occurred while adding a card to the user');
     }
 });
+
+app.use('/api', api);
 
 app.listen(port, () => {
   console.log(`Battler backend listening at http://localhost:${port}`);
