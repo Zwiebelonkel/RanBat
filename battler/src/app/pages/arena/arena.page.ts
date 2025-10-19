@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StorageService } from '../../services/storage.service';
 import { BattleService } from '../../services/battle.service';
 import { Character } from '../../models';
 import { CharacterGeneratorService } from '../../services/character-generator.service';
@@ -8,6 +7,7 @@ import { CharacterCardComponent } from '../../components/character-card/characte
 import { CurrencyService } from '../../services/currency.service';
 import { ExperienceService } from '../../services/experience.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   standalone: true,
@@ -22,7 +22,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]),
   ],
 })
-export class ArenaPage {
+export class ArenaPage implements OnInit {
   deck: Character[] = [];
   char1?: Character;
   char2?: Character;
@@ -30,17 +30,25 @@ export class ArenaPage {
   result?: { winner: string; loser: string };
 
   constructor(
-    private storage: StorageService,
+    private databaseService: DatabaseService,
     private battleService: BattleService,
     private characterGenerator: CharacterGeneratorService,
     private currency: CurrencyService,
     private experienceService: ExperienceService
-  ) {
-    this.deck = this.storage.loadDeck();
-    if (this.deck.length > 0) {
-      this.char1 = this.deck[0];
-    }
-    this.char2 = this.characterGenerator.generate();
+  ) {}
+
+  ngOnInit() {
+    this.loadDeck();
+    this.newOpponent();
+  }
+
+  loadDeck() {
+    this.databaseService.loadDeck().subscribe(deck => {
+      this.deck = deck;
+      if (this.deck.length > 0) {
+        this.char1 = this.deck[0];
+      }
+    });
   }
 
   selectCharacter(index: string) {
@@ -60,12 +68,12 @@ export class ArenaPage {
     } else {
       this.currency.spendGold(5);
     }
-    this.deck = this.storage.loadDeck();
+    this.loadDeck();
   }
 
   newOpponent() {
     this.result = undefined;
     this.resultLog = [];
-    this.char2 = this.characterGenerator.generate();
+    this.char2 = this.characterGenerator.generateCharacter();
   }
 }

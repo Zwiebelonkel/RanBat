@@ -9,6 +9,7 @@
   "dependencies": {
     "@libsql/client": "^0.15.15",
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "uuid": "^13.0.0"
   }
 }

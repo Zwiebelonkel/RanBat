@@ -42,9 +42,8 @@ export class BattleService {
   }
 
   computeRating(c: Character): number {
-    const s = c.stats;
     const base =
-      s.strength * 1.1 + s.speed * 1.0 + s.stamina * 1.05 + s.defense * 1.05;
+      c.attack * 1.1 + c.speed * 1.0 + c.health * 1.05 + c.defense * 1.05;
     const tier = this.tierMod[c.tier] ?? 1;
     const rarity = this.rarityMod[c.rarity] ?? 1;
     const w = this.weaponMod(c.weapon);
@@ -90,14 +89,14 @@ export class BattleService {
   applyWinUpgrade(winner: Character): Character {
     // simpel: random Stat +1 (bis 60 cap) oder neue Power/Waffe falls fehlend
     const cap = 60;
-    const canBoost: Array<keyof typeof winner.stats> = [
-      'strength',
+    const canBoost: Array<keyof Character> = [
+      'attack',
       'speed',
-      'stamina',
+      'health',
       'defense',
     ];
     const choice = canBoost[Math.floor(Math.random() * canBoost.length)];
-    winner.stats[choice] = Math.min(cap, winner.stats[choice] + 1);
+    (winner as any)[choice] = Math.min(cap, (winner as any)[choice] + 1);
     winner.level += winner.level % 5 === 0 ? 0 : 0; // optional Level-Gate
     winner.xp += 10;
     return { ...winner };

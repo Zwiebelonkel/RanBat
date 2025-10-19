@@ -1,15 +1,15 @@
-.shop-container {
+.shop-page {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
-}
 
-.balance {
-  font-size: 1.2em;
-  margin-bottom: 20px;
-}
+  .balance {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
 
-button {
-  margin-bottom: 20px;
+  .btn {
+    margin-bottom: 20px;
+  }
 }

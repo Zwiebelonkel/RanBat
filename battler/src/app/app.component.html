@@ -2,8 +2,14 @@
   <a routerLink="/generator">🎲 Generator</a>
   <a routerLink="/arena">⚔️ Arena</a>
   <a routerLink="/collection">🗂️ Sammlung</a>
-  <!-- <a routerLink="/shop">🛒 Shop</a> -->
   <div class="gold-display">💰 {{ gold$ | async }} Gold</div>
+  <div *ngIf="currentUser$ | async as user; else loginButton">
+    <span>Welcome, {{ user.username }}</span>
+    <button (click)="logout()">Logout</button>
+  </div>
+  <ng-template #loginButton>
+    <a routerLink="/login">Login</a>
+  </ng-template>
 </nav>
 <main class="main-container">
   <router-outlet></router-outlet>

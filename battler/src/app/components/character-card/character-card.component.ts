@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Character, Stats } from '../../models';
+import { Character } from '../../models';
 
 @Component({
   selector: 'app-character-card',
@@ -16,7 +16,7 @@ export class CharacterCardComponent implements OnInit {
   @Input() showReroll = false;
   @Input() isLoser = false;
   @Output() delete = new EventEmitter<void>();
-  @Output() reroll = new EventEmitter<{ character: Character, stat: keyof Stats }>();
+  @Output() reroll = new EventEmitter<{ character: Character, stat: string }>();
 
   displayStats: string[] = [];
   xpForNextLevel = 0;
@@ -25,7 +25,7 @@ export class CharacterCardComponent implements OnInit {
     if (this.animated) {
       this.revealStats();
     } else {
-      this.displayStats = ['strength', 'stamina', 'speed', 'defense'];
+      this.displayStats = ['attack', 'health', 'speed', 'defense'];
     }
     this.xpForNextLevel = this.getExperienceForNextLevel(this.c.level);
   }
@@ -40,7 +40,7 @@ export class CharacterCardComponent implements OnInit {
   }
 
   revealStats() {
-    const stats = ['strength', 'stamina', 'speed', 'defense'];
+    const stats = ['attack', 'health', 'speed', 'defense'];
     let i = 0;
     const interval = setInterval(() => {
       this.displayStats.push(stats[i]);
@@ -52,15 +52,14 @@ export class CharacterCardComponent implements OnInit {
   }
 
   get total() {
-    const s = this.c.stats;
-    return s.strength + s.speed + s.stamina + s.defense;
+    return this.c.attack + this.c.speed + this.c.health + this.c.defense;
   }
 
   onDelete() {
     this.delete.emit();
   }
 
-  onReroll(stat: keyof Stats) {
+  onReroll(stat: string) {
     this.reroll.emit({ character: this.c, stat });
   }
 }

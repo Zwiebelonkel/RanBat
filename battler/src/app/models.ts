@@ -1,25 +1,6 @@
-export type Rarity =
-  | 'common'
-  | 'rare'
-  | 'epic'
-  | 'legendary'
-  | 'exotic'
-  | 'mystical';
+export type Rarity = 'common' | 'rare' | 'epic' | 'legendary' | 'exotic' | 'mystical';
 
-export type Tier =
-  | 'Mensch'
-  | 'Tier'
-  | 'Halbgott'
-  | 'Android'
-  | 'Dämon'
-  | 'Gott';
-
-export interface Stats {
-  strength: number;
-  speed: number;
-  stamina: number;
-  defense: number;
-}
+export type Tier = 'Mensch' | 'Tier' | 'Halbgott' | 'Android' | 'Dämon' | 'Gott';
 
 export interface Character {
   id: string;
@@ -32,7 +13,10 @@ export interface Character {
   weapon?: string;
   hasPower?: boolean;
   power?: string;
-  stats: Stats;
+  attack: number;
+  defense: number;
+  speed: number;
+  health: number;
   level: number;
   xp: number;
   createdAt: number;
@@ -42,4 +26,10 @@ export interface BattleResult {
   winner: Character;
   loser: Character;
   log: string[];
+}
+
+export interface User {
+  id: string;
+  username: string;
+  token?: string;
 }

@@ -1,22 +1,29 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { CurrencyService } from './services/currency.service';
-import { Observable } from 'rxjs';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { ThemeService } from './services/theme.service';
+import { Observable } from 'rxjs';
+import { User } from './models';
+import { AuthService } from './services/auth.service';
+import { CurrencyService } from './services/currency.service';
 
 @Component({
-  selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule],
+  selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'battler';
+  title = 'ranbat';
+  currentUser$: Observable<User | null>;
   gold$: Observable<number>;
 
-  constructor(private currency: CurrencyService, private theme: ThemeService) {
-    this.gold$ = this.currency.gold$;
+  constructor(private authService: AuthService, private currencyService: CurrencyService) {
+    this.currentUser$ = this.authService.currentUser$;
+    this.gold$ = this.currencyService.gold$;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

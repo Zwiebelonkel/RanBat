@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CharacterGeneratorService } from '../../services/character-generator.service';
-import { StorageService } from '../../services/storage.service';
 import { Character } from '../../models';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
 import { CurrencyService } from '../../services/currency.service';
 import { Observable } from 'rxjs';
+import { DatabaseService } from '../../services/database.service';
+import { CharacterGeneratorService } from '../../services/character-generator.service';
 
 @Component({
   standalone: true,
@@ -13,36 +13,44 @@ import { Observable } from 'rxjs';
   templateUrl: './generator.page.html',
   styleUrls: ['./generator.page.scss'],
 })
-export class GeneratorPage {
+export class GeneratorPage implements OnInit {
   last?: Character;
   deck: Character[] = [];
   gold$: Observable<number>;
 
   constructor(
-    private gen: CharacterGeneratorService,
-    private store: StorageService,
-    private currency: CurrencyService
+    private databaseService: DatabaseService,
+    private currency: CurrencyService,
+    private characterGenerator: CharacterGeneratorService,
   ) {
-    this.deck = this.store.loadDeck();
     this.gold$ = this.currency.gold$;
+  }
+
+  ngOnInit() {
+    this.loadDeck();
+  }
+
+  loadDeck() {
+    this.databaseService.getUserCards().subscribe(deck => this.deck = deck);
   }
 
   create() {
     if (this.currency.spendGold(0)) {
-      const c = this.gen.generate();
-      this.last = c;
+      this.last = this.characterGenerator.generateCharacter();
     }
   }
 
   save() {
-    if (!this.last) return;
-    this.deck.unshift(this.last);
-    this.store.saveDeck(this.deck);
-    this.last = undefined;
+    if (this.last) {
+      this.databaseService.saveUserCard(this.last).subscribe(() => {
+        this.deck.push(this.last!)
+        this.last = undefined;
+      });
+    }
   }
 
   deleteCard(index: number) {
     this.deck.splice(index, 1);
-    this.store.saveDeck(this.deck);
+    this.databaseService.saveDeck(this.deck).subscribe();
   }
 }

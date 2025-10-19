@@ -25,24 +25,24 @@
   </div>
 
   <div class="stats">
-    <div *ngIf="displayStats.includes('strength')">
-      <label>STR</label>
-      <span>{{ c.stats.strength }}</span>
-      <button class="btn" *ngIf="showReroll" (click)="onReroll('strength')"> reroll </button>
+    <div *ngIf="displayStats.includes('attack')">
+      <label>ATK</label>
+      <span>{{ c.attack }}</span>
+      <button class="btn" *ngIf="showReroll" (click)="onReroll('attack')"> reroll </button>
     </div>
-    <div *ngIf="displayStats.includes('stamina')">
-      <label>STA</label>
-      <span>{{ c.stats.stamina }}</span>
-      <button class="btn" *ngIf="showReroll" (click)="onReroll('stamina')"> reroll </button>
+    <div *ngIf="displayStats.includes('health')">
+      <label>HP</label>
+      <span>{{ c.health }}</span>
+      <button class="btn" *ngIf="showReroll" (click)="onReroll('health')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('speed')">
       <label>SPD</label>
-      <span>{{ c.stats.speed }}</span>
+      <span>{{ c.speed }}</span>
       <button class="btn" *ngIf="showReroll" (click)="onReroll('speed')"> reroll </button>
     </div>
     <div *ngIf="displayStats.includes('defense')">
       <label>DEF</label>
-      <span>{{ c.stats.defense }}</span>
+      <span>{{ c.defense }}</span>
       <button class="btn" *ngIf="showReroll" (click)="onReroll('defense')"> reroll </button>
     </div>
   </div>

@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
-import { StorageService } from '../../services/storage.service';
-import { Character, Stats } from '../../models';
+import { Component, OnInit } from '@angular/core';
+import { Character } from '../../models';
 import { CharacterCardComponent } from '../../components/character-card/character-card.component';
 import { CommonModule } from '@angular/common';
-import { CharacterGeneratorService } from '../../services/character-generator.service';
-import { CurrencyService } from '../../services/currency.service';
+import { DatabaseService } from '../../services/database.service';
 
 @Component({
   standalone: true,
@@ -12,32 +10,25 @@ import { CurrencyService } from '../../services/currency.service';
   templateUrl: './collection.page.html',
   styleUrls: ['./collection.page.scss'],
 })
-export class CollectionPage {
+export class CollectionPage implements OnInit {
   deck: Character[] = [];
   constructor(
-    private store: StorageService,
-    private characterGenerator: CharacterGeneratorService,
-    private currency: CurrencyService
-  ) {
-    this.deck = this.store.loadDeck();
+    private databaseService: DatabaseService,
+  ) {}
+
+  ngOnInit(): void {
+    this.databaseService.getUserCards().subscribe(cards => {
+      this.deck = cards;
+    });
   }
 
   deleteCard(character: Character) {
-    this.deck = this.deck.filter((c) => c.id !== character.id);
-    this.store.saveDeck(this.deck);
+    // This functionality should be moved to the backend
+    console.log('Deleting card', character);
   }
 
-  rerollStat(args: { character: Character; stat: keyof Stats }) {
-    if (this.currency.spendGold(10)) {
-      const updatedCharacter = this.characterGenerator.rerollStat(
-        args.character,
-        args.stat
-      );
-      const index = this.deck.findIndex((c) => c.id === args.character.id);
-      if (index !== -1) {
-        this.deck[index] = updatedCharacter;
-        this.store.saveDeck(this.deck);
-      }
-    }
+  rerollStat(args: { character: Character; stat: string }) {
+    // This functionality should be moved to the backend
+    console.log('Rerolling stat', args);
   }
 }

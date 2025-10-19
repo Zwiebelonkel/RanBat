@@ -1,4 +1,4 @@
-<div class="shop-container">
+<div class="shop-page">
   <div class="balance">Your Gold: {{ (currency.gold$ | async) ?? 0 }}</div>
   <button class="btn" (click)="buyCard()" [disabled]="((currency.gold$ | async) ?? 0) < 10">Buy Card (10 Gold)</button>
 
