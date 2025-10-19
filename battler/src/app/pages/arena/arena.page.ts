@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BattleService } from '../../services/battle.service';
 import { Character } from '../../models';
@@ -23,19 +23,17 @@ import { DatabaseService } from '../../services/database.service';
   ],
 })
 export class ArenaPage implements OnInit {
+  private databaseService = inject(DatabaseService);
+  private battleService = inject(BattleService);
+  private characterGenerator = inject(CharacterGeneratorService);
+  private currency = inject(CurrencyService);
+  private experienceService = inject(ExperienceService);
+
   deck: Character[] = [];
   char1?: Character;
   char2?: Character;
   resultLog: string[] = [];
   result?: { winner: string; loser: string };
-
-  constructor(
-    private databaseService: DatabaseService,
-    private battleService: BattleService,
-    private characterGenerator: CharacterGeneratorService,
-    private currency: CurrencyService,
-    private experienceService: ExperienceService
-  ) {}
 
   ngOnInit() {
     this.loadDeck();
@@ -43,7 +41,7 @@ export class ArenaPage implements OnInit {
   }
 
   loadDeck() {
-    this.databaseService.loadDeck().subscribe(deck => {
+    this.databaseService.getUserCards().subscribe((deck: Character[]) => {
       this.deck = deck;
       if (this.deck.length > 0) {
         this.char1 = this.deck[0];
